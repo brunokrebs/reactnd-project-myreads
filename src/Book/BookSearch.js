@@ -18,7 +18,6 @@ class BookSearch extends Component {
         search(query).then(cb);
     }, 300);
 
-    //
     /**
      * @description Sets the state on everychange, but triggers (debounced) searchQuery only if query is not empty.
      * @param {string} query - The query typed by the user
@@ -52,7 +51,7 @@ class BookSearch extends Component {
                     <ol className="books-grid">
                         {this.state.books.map((book) => (
                             <li key={book.id}>
-                                <Book book={book}/>
+                                <Book book={book} onBookMoved={() => this.props.showShelves()} />
                             </li>
                         ))}
                     </ol>
