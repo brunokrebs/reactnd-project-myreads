@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Book from './Book';
 import * as BooksAPI from './BooksAPI';
 
-class ListBook extends Component {
+class BookList extends Component {
     state = {
         books: []
     };
@@ -44,4 +44,4 @@ class ListBook extends Component {
     }
 }
 
-export default ListBook;
+export default BookList;

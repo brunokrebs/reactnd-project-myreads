@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ListBook from "./ListBook";
+import BookList from "./Book/BookList";
 
 class BooksApp extends React.Component {
     state = {
@@ -38,7 +38,7 @@ class BooksApp extends React.Component {
                         </div>
                     </div>
                 ) : (
-                    <ListBook />
+                    <BookList />
                 )}
             </div>
         )
