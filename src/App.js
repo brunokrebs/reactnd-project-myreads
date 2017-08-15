@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Book from './Book';
+import ListBook from "./ListBook";
 
 class BooksApp extends React.Component {
     state = {
@@ -10,10 +10,7 @@ class BooksApp extends React.Component {
          * users can use the browser's back and forward buttons to navigate between
          * pages, as well as provide a good URL they can bookmark and share.
          */
-        showSearchPage: false,
-        books: [
-            { title: 'Go Horse', author: 'Bruno Krebs', imageUrl: 'http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api'}
-        ]
+        showSearchPage: false
     };
 
     render() {
@@ -41,60 +38,7 @@ class BooksApp extends React.Component {
                         </div>
                     </div>
                 ) : (
-                    <div className="list-books">
-                        <div className="list-books-title">
-                            <h1>MyReads</h1>
-                        </div>
-                        <div className="list-books-content">
-                            <div>
-                                <div className="bookshelf">
-                                    <h2 className="bookshelf-title">Currently Reading</h2>
-                                    <div className="bookshelf-books">
-                                        <ol className="books-grid">
-                                            <li>
-                                                <Book book={this.state.books[0]}/>
-                                            </li>
-                                            <li>
-                                                <Book book={this.state.books[0]}/>
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                                <div className="bookshelf">
-                                    <h2 className="bookshelf-title">Want to Read</h2>
-                                    <div className="bookshelf-books">
-                                        <ol className="books-grid">
-                                            <li>
-                                                <Book book={this.state.books[0]}/>
-                                            </li>
-                                            <li>
-                                                <Book book={this.state.books[0]}/>
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                                <div className="bookshelf">
-                                    <h2 className="bookshelf-title">Read</h2>
-                                    <div className="bookshelf-books">
-                                        <ol className="books-grid">
-                                            <li>
-                                                <Book book={this.state.books[0]}/>
-                                            </li>
-                                            <li>
-                                                <Book book={this.state.books[0]}/>
-                                            </li>
-                                            <li>
-                                                <Book book={this.state.books[0]}/>
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="open-search">
-                            <a onClick={() => this.setState({showSearchPage: true})}>Add a book</a>
-                        </div>
-                    </div>
+                    <ListBook />
                 )}
             </div>
         )
