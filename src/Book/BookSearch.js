@@ -3,6 +3,7 @@ import debounce from 'debounce';
 import {search} from "./BooksAPI";
 import Book from "./Book";
 import find from 'lodash.find'
+import {Link} from 'react-router-dom';
 
 class BookSearch extends Component {
     state = {
@@ -50,7 +51,7 @@ class BookSearch extends Component {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <a className="close-search" onClick={() => this.props.showShelves()}>Close</a>
+                    <Link to="/" className="close-search">Back</Link>
                     <div className="search-books-input-wrapper">
                         <input type="text"
                                value={this.state.query}
