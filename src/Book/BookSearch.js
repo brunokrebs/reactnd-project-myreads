@@ -4,6 +4,7 @@ import {search} from "./BooksAPI";
 import Book from "./Book";
 import find from 'lodash.find'
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class BookSearch extends Component {
     state = {
@@ -74,5 +75,12 @@ class BookSearch extends Component {
         );
     }
 }
+
+BookSearch.propTypes = {
+    booksShelved: PropTypes.array.isRequired,
+    onBookMoved: PropTypes.func.isRequired,
+    onStartLoading: PropTypes.func.isRequired,
+    onStopLoading: PropTypes.func.isRequired
+};
 
 export default BookSearch;
