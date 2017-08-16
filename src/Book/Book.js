@@ -1,15 +1,6 @@
 import React, {Component} from 'react';
-import {update} from "./BooksAPI";
 
 class Book extends Component {
-    moveBook = (book, shelf) => {
-        update(book, shelf).then(() => {
-            if (this.props.onBookMoved) {
-                this.props.onBookMoved();
-            }
-        });
-    };
-
     render() {
         const bookCover = {
             width: 128,
@@ -23,8 +14,8 @@ class Book extends Component {
                     <div className="book-cover" style={bookCover} />
                     <div className="book-shelf-changer">
                         <select value={this.props.book.shelf}
-                                onChange={(event) => this.moveBook(this.props.book, event.target.value)}>
-                            <option value="none" disabled>Move to...</option>
+                                onChange={(event) => this.props.onBookMoved(this.props.book, event.target.value)}>
+                            <option value="" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
                             <option value="read">Read</option>

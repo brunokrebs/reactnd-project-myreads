@@ -62,7 +62,7 @@ class BookSearch extends Component {
                     <ol className="books-grid">
                         {this.state.booksFound.map((book) => (
                             <li key={book.id}>
-                                <Book book={book} onBookMoved={() => this.props.showShelves()} />
+                                <Book book={book} onBookMoved={this.props.onBookMoved} />
                             </li>
                         ))}
                     </ol>

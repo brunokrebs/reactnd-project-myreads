@@ -1,27 +1,13 @@
 import React, {Component} from 'react';
 import BookShelf from './BookShelf';
-import * as BooksAPI from './BooksAPI';
 
 class BookList extends Component {
-    state = {
-        wantToRead: [],
-        currentlyReading: [],
-        read: []
-    };
-
-    refreshBooks = () => {
-        BooksAPI.getAll().then((books) => {
-            this.setState({
-                wantToRead: books.filter(book => book.shelf === 'wantToRead'),
-                currentlyReading: books.filter(book => book.shelf === 'currentlyReading'),
-                read: books.filter(book => book.shelf === 'read')
-            });
-        });
-    };
-
-    componentDidMount = this.refreshBooks;
-
     render() {
+        const books = this.props.books;
+        const wantToRead = books.filter(book => book.shelf === 'wantToRead');
+        const currentlyReading = books.filter(book => book.shelf === 'currentlyReading');
+        const read = books.filter(book => book.shelf === 'read');
+
         return (
             <div className="list-books">
                 <div className="list-books-title">
@@ -30,16 +16,16 @@ class BookList extends Component {
                 <div className="list-books-content">
                     <div>
                         <BookShelf shelfName="Currently Reading"
-                                   books={this.state.currentlyReading}
-                                   onBookMoved={this.refreshBooks} />
+                                   books={currentlyReading}
+                                   onBookMoved={this.props.onBookMoved} />
 
                         <BookShelf shelfName="Want to Read"
-                                   books={this.state.wantToRead}
-                                   onBookMoved={this.refreshBooks} />
+                                   books={wantToRead}
+                                   onBookMoved={this.props.onBookMoved} />
 
                         <BookShelf shelfName="Read"
-                                   books={this.state.read}
-                                   onBookMoved={this.refreshBooks} />
+                                   books={read}
+                                   onBookMoved={this.props.onBookMoved} />
                     </div>
                 </div>
                 <div className="open-search">
