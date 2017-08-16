@@ -16,6 +16,7 @@ class Book extends Component {
             height: 192,
             backgroundImage: 'url(' + this.props.book.imageLinks.smallThumbnail + ')'
         };
+        const authors = this.props.book.authors || [];
         return (
             <div className="book">
                 <div className="book-top">
@@ -33,7 +34,7 @@ class Book extends Component {
                 </div>
                 <div className="book-title">{this.props.book.title}</div>
                 <div className="book-authors">
-                    {this.props.book.authors.map((author, index) => (
+                    {authors.map((author, index) => (
                         <div key={index}>
                             {author}
                         </div>
