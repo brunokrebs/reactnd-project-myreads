@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import debounce from 'debounce';
 import {search} from "./BooksAPI";
 import Book from "./Book";
+import find from 'lodash.find'
 
 class BookSearch extends Component {
     state = {
         query: '',
-        books: []
+        booksFound: []
     };
 
     /**
@@ -27,15 +28,25 @@ class BookSearch extends Component {
         if (query.trim()) {
             this.searchQuery(query.trim(), response => {
                 if (response.error) {
-                    this.setState({books: []});
+                    this.setState({booksFound: []});
                 } else {
-                    this.setState({books: response});
+                    this.setState({booksFound: response});
                 }
             });
         }
     };
 
+    setBookShelf() {
+        const booksFound = this.state.booksFound;
+        const booksShelved = this.props.booksShelved;
+        booksFound.forEach(bookFound => {
+            const bookShelved = find(booksShelved, b => (b.id === bookFound.id));
+            bookFound.shelf = bookShelved ? bookShelved.shelf : 'none';
+        });
+    }
+
     render() {
+        this.setBookShelf();
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -49,7 +60,7 @@ class BookSearch extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.books.map((book) => (
+                        {this.state.booksFound.map((book) => (
                             <li key={book.id}>
                                 <Book book={book} onBookMoved={() => this.props.showShelves()} />
                             </li>
