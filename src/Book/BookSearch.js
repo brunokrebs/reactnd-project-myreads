@@ -17,6 +17,7 @@ class BookSearch extends Component {
      * @param {function} cb - The function to be called after a backend response
      */
     searchQuery = debounce(function(query, cb) {
+        this.props.onStartLoading();
         search(query).then(cb);
     }, 300);
 
@@ -33,6 +34,7 @@ class BookSearch extends Component {
                 } else {
                     this.setState({booksFound: response});
                 }
+                this.props.onStopLoading();
             });
         }
     };

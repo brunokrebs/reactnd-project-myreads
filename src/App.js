@@ -6,10 +6,12 @@ import {getAll, update} from './Book/BooksAPI';
 import find from 'lodash.find';
 import remove from 'lodash.remove';
 import {Route} from 'react-router-dom';
+import LoadingIndicator from "./LoadingIndicator/LoadingIndicator";
 
 class BooksApp extends React.Component {
     state = {
-        books: []
+        books: [],
+        processingRequest: false
     };
 
     /**
@@ -20,6 +22,9 @@ class BooksApp extends React.Component {
      * @param shelf - The shelf where the book has been moved to
      */
     onBookMoved = (book, shelf) => {
+        this.setState({
+            processingRequest: true
+        });
         update(book, shelf).then(() => {
             const booksShelved = this.state.books;
             const bookShelved = find(this.state.books, b => (b.id === book.id));
@@ -34,14 +39,30 @@ class BooksApp extends React.Component {
             }
 
             this.setState({
-                books: booksShelved
+                books: booksShelved,
+                processingRequest: false
             });
         });
     };
 
+    startLoading = () => {
+        this.setState({
+            processingRequest: true
+        });
+    };
+
+    stopLoading = () => {
+        this.setState({
+            processingRequest: false
+        });
+    };
+
     componentDidMount() {
+        this.startLoading();
+
         getAll().then(books => {
             this.setState({ books });
+            this.stopLoading();
         });
     }
 
@@ -50,12 +71,17 @@ class BooksApp extends React.Component {
             <div className="app">
                 <Route exact path="/search" render={() => (
                     <BookSearch booksShelved={this.state.books}
+                                onStartLoading={this.startLoading}
+                                onStopLoading={this.stopLoading}
                                 onBookMoved={this.onBookMoved} />
                 )} />
                 <Route exact path="/" render={() => (
                     <BookList books={this.state.books}
                               onBookMoved={this.onBookMoved} />
                 )} />
+                {this.state.processingRequest &&(
+                    <LoadingIndicator processingRequest={this.state.processingRequest} />
+                )}
             </div>
         )
     }
